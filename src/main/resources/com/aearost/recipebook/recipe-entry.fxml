@@ -102,7 +102,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <ComboBox fx:id="mealTypeEntryComboBox" prefWidth="150.0" promptText="Any" visibleRowCount="6" />
+                  <ComboBox fx:id="mealTypeEntryComboBox" prefWidth="150.0" visibleRowCount="6" />
                </children>
             </HBox>
             <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
@@ -115,7 +115,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <ComboBox fx:id="cuisineEntryComboBox" prefWidth="150.0" promptText="Any" visibleRowCount="7" />
+                  <ComboBox fx:id="cuisineEntryComboBox" prefWidth="150.0" visibleRowCount="7" />
                </children>
             </HBox>
             <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
@@ -128,7 +128,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <ComboBox fx:id="costEntryComboBox" prefWidth="150.0" promptText="Any" visibleRowCount="5" />
+                  <ComboBox fx:id="costEntryComboBox" prefWidth="150.0" visibleRowCount="5" />
                </children>
             </HBox>
             <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
@@ -167,7 +167,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <ComboBox fx:id="proteinTypeEntryComboBox" prefHeight="25.0" prefWidth="137.0" promptText="Any" visibleRowCount="7" />
+                  <ComboBox fx:id="proteinTypeEntryComboBox" prefHeight="25.0" prefWidth="137.0" visibleRowCount="7" />
                </children>
             </HBox>
          </children>
