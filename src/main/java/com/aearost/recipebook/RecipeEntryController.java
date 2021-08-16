@@ -195,7 +195,7 @@ public class RecipeEntryController {
         
         
         proteinTypeEntryComboBox.getItems().removeAll(proteinTypeEntryComboBox.getItems());
-        proteinTypeEntryComboBox.getItems().addAll("Chicken", "Beef", "Pork", "Fish", "Tofu", "Vegeterian", "Dessert");
+        proteinTypeEntryComboBox.getItems().addAll("Chicken", "Beef", "Pork", "Fish", "Tofu", "Vegetarian", "Dessert");
     }
     
     @FXML

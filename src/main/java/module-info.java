@@ -4,4 +4,5 @@ module com.aearost.recipebook {
 
     opens com.aearost.recipebook to javafx.fxml;
     exports com.aearost.recipebook;
+    
 }
