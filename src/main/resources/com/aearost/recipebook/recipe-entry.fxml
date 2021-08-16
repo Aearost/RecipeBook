@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <VBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aearost.recipebook.RecipeEntryController">
     <padding>
@@ -85,6 +86,16 @@
                      </opaqueInsets>
                   </Label>
                   <TextArea fx:id="stepsEntryTextArea" prefHeight="150.0" prefWidth="410.0" promptText="List the steps to make the recipe..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <Button fx:id="imageAttachButton" mnemonicParsing="false" onAction="#onImageAttachButtonClick" text="Select Image" />
+                  <Text fx:id="imagePathText" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                  </Text>
                </children>
             </HBox>
          </children>

@@ -27,6 +27,7 @@ public class Recipe {
         this.prepTime = prepTime;
         this.cookTime = cookTime;
         this.proteinType = proteinType;
+        this.imageUrl = "";
     }
     
     public Recipe(String name, String description, List<String> ingredients, List<String> steps, MealType mealType, Cuisine cuisine, Cost cost, int prepTime, int cookTime, ProteinType proteinType, String imageUrl) {
@@ -160,7 +161,7 @@ public class Recipe {
         String prepTimeLine = "Prep Time: " + this.prepTime + "\n";
         String cookTimeLine = "Cook Time: " + this.cookTime + "\n";
         String proteinTypeLine = "Protein Type: " + this.proteinType.toString();
-        if (this.imageUrl != null) {
+        if (!this.imageUrl.equals("")) {
             proteinTypeLine += "\n";
             String imageUrlLine = "Image URL: " + this.imageUrl;
             return lineSeparator + nameLine + descriptionLine + ingredientsLine + stepsLine + mealTypeLine + cuisineLine + costLine + prepTimeLine + cookTimeLine + proteinTypeLine + imageUrlLine;

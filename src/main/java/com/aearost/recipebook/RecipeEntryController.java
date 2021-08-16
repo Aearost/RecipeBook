@@ -5,6 +5,7 @@ import com.aearost.recipebook.objects.Cuisine;
 import com.aearost.recipebook.objects.MealType;
 import com.aearost.recipebook.objects.ProteinType;
 import com.aearost.recipebook.objects.Recipe;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,9 +14,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class RecipeEntryController {
 
@@ -40,6 +45,10 @@ public class RecipeEntryController {
     @FXML
     private ComboBox proteinTypeEntryComboBox;
     @FXML
+    private Button imageAttachButton;
+    @FXML
+    private Text imagePathText;
+    @FXML
     private Button recipeEntryBackButton;
     @FXML
     private Button recipeEntryAddRecipeButton;
@@ -47,6 +56,17 @@ public class RecipeEntryController {
     @FXML
     private void onRecipeEntryBackButtonClick() throws IOException {
         App.setRoot("home");
+    }
+    
+    @FXML
+    private void onImageAttachButtonClick() {
+        FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(
+                    new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+            File selectedFile = fileChooser.showOpenDialog(imageAttachButton.getScene().getWindow());
+            
+            imagePathText.setText(selectedFile.getPath());
     }
     
     @FXML
@@ -96,8 +116,16 @@ public class RecipeEntryController {
 
             ProteinType proteinType = ProteinType.valueOf(proteinTypeEntryComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
             
-            Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
-            System.out.println(recipe.toString());
+            // No image was selected
+            if (imagePathText.getText().equals("")) {
+                Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
+                RecipePersistence.writeRecipeToFile(recipe);
+            }
+            // An image was selected
+            else {
+                Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imagePathText.getText());
+                RecipePersistence.writeRecipeToFile(recipe);
+            }
         } else {
             Alert invalidFieldsAlert = new Alert(AlertType.INFORMATION);
             invalidFieldsAlert.setHeaderText("Hey!");
