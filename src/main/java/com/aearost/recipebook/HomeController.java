@@ -1,5 +1,6 @@
 package com.aearost.recipebook;
 
+import com.aearost.recipebook.objects.Recipe;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,6 +26,14 @@ public class HomeController {
     @FXML
     private ListView recipeResultsListView;
     
+    
+    @FXML
+    private void onRecipeSearchButtonClick() {
+        recipeResultsListView.getItems().clear();
+        for (Recipe recipe : RecipeUtils.getRecipes()) {
+            recipeResultsListView.getItems().add(recipe.getName());
+        }
+    }
     
     @FXML
     private void onAddRecipeButtonClick() throws IOException {

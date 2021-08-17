@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -125,6 +124,7 @@ public class RecipeEntryController {
             else {
                 Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imagePathText.getText());
                 RecipePersistence.writeRecipeToFile(recipe);
+                RecipeUtils.addRecipe(recipe);
             }
         } else {
             Alert invalidFieldsAlert = new Alert(AlertType.INFORMATION);

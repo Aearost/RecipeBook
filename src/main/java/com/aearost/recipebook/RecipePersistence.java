@@ -1,11 +1,19 @@
 package com.aearost.recipebook;
 
+import com.aearost.recipebook.objects.Cost;
+import com.aearost.recipebook.objects.Cuisine;
+import com.aearost.recipebook.objects.MealType;
+import com.aearost.recipebook.objects.ProteinType;
 import com.aearost.recipebook.objects.Recipe;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import javafx.scene.control.Alert;
 
 public class RecipePersistence {
@@ -87,9 +95,7 @@ public class RecipePersistence {
                             }
                             writer.write("    \"imageUrl\": \"" + recipe.getImageUrl() + "\"\n");
                             
-                            writer.write("}");
-                            
-                            
+                            writer.write("}");   
                         }
                         
                         Alert recipeAddSuccessAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -115,20 +121,108 @@ public class RecipePersistence {
         }
     }
     
-//    private static void ensureDirectoryBeforeCreation(String dirPath) {
-//        if (dirPath != null && !dirPath.isEmpty()) {
-//            File dir = new File(dirPath);
-//            if (!dir.exists()) {
-//                Path newDirPath = Paths.get(dirPath);
-//                if (!Files.exists(newDirPath)) {
-//                    try {
-//                        Files.createDirectories(newDirPath);
-//                    } catch (IOException e) {
-//                        throw new RuntimeException("Exception while creating directory: " + dirPath, e);
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
+
+    public static void readRecipesFromFiles() {
+        String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "RecipeBook" + File.separator + "recipes";
+        File recipeDirectory = new File(path);
+        
+        if (recipeDirectory.isDirectory()) {
+            Scanner reader;
+            for (final File recipeFile : recipeDirectory.listFiles()) {
+                try {
+                    reader = new Scanner(recipeFile);
+                    int fieldCount = 0;
+                    String fieldName;
+                    String fieldValue;
+                    
+                    String name = null;
+                    String description = null;
+                    List<String> ingredients = null;
+                    List<String> steps = null;
+                    MealType mealType = null;
+                    Cuisine cuisine = null;
+                    Cost cost = null;
+                    int prepTime = 0;
+                    int cookTime = 0;
+                    ProteinType proteinType = null;
+                    String imageUrl = null;
+
+                    while (reader.hasNextLine()) {
+                        String line = reader.nextLine();
+                        String[] parts = line.split("\"");
+
+                        if (line.equals("{") || line.equals("}")) {
+                            continue;
+                        }
+                        
+                        if (parts[parts.length - 1].contains(",") || parts[1].equals("imageUrl")) {
+                            fieldName = parts[1];
+                            fieldValue = parts[3];
+                        } else {
+                            continue;
+                        }
+
+                        if (fieldName.equals("name")) {
+                            name = fieldValue;
+                            fieldCount++;
+                        }
+                        else if (fieldName.equals("description")) {
+                            description = fieldValue;
+                            fieldCount++;
+                        } else if (fieldName.equals("ingredients")) {
+                            ingredients = new ArrayList<>();
+                            int finalPart = parts.length - 2;
+                            // Cycles through the elements in the array
+                            for (int i = 3; i < finalPart; i = i + 2) {
+                                ingredients.add(parts[i]);
+                            }
+                            fieldCount++;
+                        } else if (fieldName.equals("steps")) {
+                            steps = new ArrayList<>();
+                            int finalPart = parts.length - 2;
+                            // Cycles through the elements in the array
+                            for (int i = 3; i < finalPart; i = i + 2) {
+                                steps.add(parts[i]);
+                            }
+                            fieldCount++;
+                        } else if (fieldName.equals("mealType")) {
+                            mealType = MealType.valueOf(fieldValue);
+                            fieldCount++;
+                        } else if (fieldName.equals("cuisine")) {
+                            cuisine = Cuisine.valueOf(fieldValue);
+                            fieldCount++;
+                        } else if (fieldName.equals("cost")) {
+                            cost = Cost.valueOf(fieldValue);
+                            fieldCount++;
+                        } else if (fieldName.equals("prepTime")) {
+                            prepTime = Integer.parseInt(fieldValue);
+                            fieldCount++;
+                        } else if (fieldName.equals("cookTime")) {
+                            cookTime = Integer.parseInt(fieldValue);
+                            fieldCount++;
+                        } else if (fieldName.equals("proteinType")) {
+                            proteinType = ProteinType.valueOf(fieldValue);
+                            fieldCount++;
+                        } else if (fieldName.equals("imageUrl")) {
+                            imageUrl = fieldValue;
+                            fieldCount++;
+                        }
+
+                        if (fieldCount == 11) {
+                            Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
+                            RecipeUtils.addRecipe(recipe);
+                            fieldCount = 0;
+                            System.out.println(name + " has been loaded");
+                        }
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+                
+        }
+    }
+        
+        
 }

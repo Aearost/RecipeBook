@@ -130,7 +130,7 @@
                   </HBox>
                </children>
             </HBox>
-            <Button fx:id="recipeSearchButton" mnemonicParsing="false" text="Search!">
+            <Button fx:id="recipeSearchButton" mnemonicParsing="false" onAction="#onRecipeSearchButtonClick" text="Search!">
                <font>
                   <Font size="14.0" />
                </font>
