@@ -3,9 +3,29 @@ package com.aearost.recipebook;
 import com.aearost.recipebook.objects.Recipe;
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class HomeController {
 
@@ -31,7 +51,60 @@ public class HomeController {
     private void onRecipeSearchButtonClick() {
         recipeResultsListView.getItems().clear();
         for (Recipe recipe : RecipeUtils.getRecipes()) {
-            recipeResultsListView.getItems().add(recipe.getName());
+            HBox row = new HBox();
+            row.setAlignment(Pos.CENTER);
+            row.setPadding(new Insets(25));
+            row.setSpacing(Screen.getPrimary().getBounds().getWidth() * 0.05);
+            
+            if (!recipe.getImageUrl().equals("")) {
+                String url = "file:///" + recipe.getImageUrl();
+                url = url.replace("\\", "/");
+                Image image = new Image(url);
+                ImageView imageView = new ImageView();
+                imageView.setImage(image);
+                imageView.setFitWidth(150);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
+                imageView.setCache(true);
+                row.getChildren().add(imageView);
+            }
+            
+            HBox content = new HBox();
+            content.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * 0.4);
+            content.setMaxWidth(Screen.getPrimary().getBounds().getWidth() * 0.4);
+            content.setAlignment(Pos.CENTER);
+            content.setSpacing(200);
+            
+            
+            
+            Text name = new Text();
+            name.setText(recipe.getName());
+            name.setFont(Font.font("Lucida Bright Demibold", 20));
+            name.setUnderline(true);
+
+            Text totalTime = new Text();
+            totalTime.setText("Total Time: " + (recipe.getPrepTime() + recipe.getCookTime()));
+            totalTime.setFont(Font.font("Lucida Bright Demibold", 20));
+
+            Text description = new Text();
+            description.setText(recipe.getDescription());
+            description.setFont(Font.font("Lucida Bright Demibold", FontPosture.ITALIC, 20));
+            description.setWrappingWidth(content.getMaxWidth() * 0.5);
+            
+
+
+
+
+            VBox stats = new VBox();
+            stats.setSpacing(50);
+            stats.getChildren().addAll(name, totalTime);
+            VBox desc = new VBox();
+            desc.getChildren().addAll(description);
+
+            
+            content.getChildren().addAll(stats, desc);
+            row.getChildren().add(content);
+            recipeResultsListView.getItems().add(row);
         }
     }
     

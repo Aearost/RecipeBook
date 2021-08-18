@@ -137,6 +137,6 @@
             </Button>
          </children>
       </VBox>
-      <ListView fx:id="recipeResultsListView" prefHeight="385.0" prefWidth="960.0" />
+      <ListView fx:id="recipeResultsListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1200.0" />
    </children>
 </VBox>

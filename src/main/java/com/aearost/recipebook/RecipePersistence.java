@@ -157,7 +157,11 @@ public class RecipePersistence {
                         
                         if (parts[parts.length - 1].contains(",") || parts[1].equals("imageUrl")) {
                             fieldName = parts[1];
-                            fieldValue = parts[3];
+                            if (parts.length > 3) {
+                                fieldValue = parts[3];
+                            } else {
+                                fieldValue = "";
+                            }
                         } else {
                             continue;
                         }
@@ -209,7 +213,7 @@ public class RecipePersistence {
                         }
 
                         if (fieldCount == 11) {
-                            Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
+                            Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imageUrl);
                             RecipeUtils.addRecipe(recipe);
                             fieldCount = 0;
                             System.out.println(name + " has been loaded");
