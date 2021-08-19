@@ -1,4 +1,4 @@
-package com.aearost.recipebook;
+package com.aearost.recipebook.utils;
 
 import com.aearost.recipebook.objects.Recipe;
 import java.util.ArrayList;

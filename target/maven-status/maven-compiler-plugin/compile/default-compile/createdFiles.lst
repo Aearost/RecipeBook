@@ -4,8 +4,5 @@ com\aearost\recipebook\objects\Recipe.class
 com\aearost\recipebook\objects\ProteinType.class
 com\aearost\recipebook\objects\Cuisine.class
 com\aearost\recipebook\objects\MealType.class
-com\aearost\recipebook\RecipePersistence.class
-com\aearost\recipebook\HomeController.class
 module-info.class
-com\aearost\recipebook\RecipeEntryController.class
 com\aearost\recipebook\Main.class
