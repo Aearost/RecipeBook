@@ -55,6 +55,8 @@ public class RecipeEntryController {
     @FXML
     private Button recipeEntryAddRecipeButton;
     
+    private boolean hasIllegalCharacterInput = false;
+    
     @FXML
     private void onRecipeEntryBackButtonClick() throws IOException {
         App.setRoot("home");
@@ -118,6 +120,8 @@ public class RecipeEntryController {
 
             ProteinType proteinType = ProteinType.valueOf(proteinTypeEntryComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
             
+            System.out.println("Current path: " + name);
+            
             // No image was selected
             if (imagePathText.getText().equals("")) {
                 Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
@@ -126,20 +130,48 @@ public class RecipeEntryController {
             // An image was selected
             else {
                 Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imagePathText.getText());
-                RecipePersistence.writeRecipeToFile(recipe);
+//                RecipePersistence.writeRecipeToFile(recipe);
                 RecipeUtils.addRecipe(recipe);
             }
         } else {
-            Alert invalidFieldsAlert = new Alert(AlertType.INFORMATION);
-            invalidFieldsAlert.setHeaderText("Hey!");
-            invalidFieldsAlert.setContentText("One or more fields is filled incorrectly.");
-            invalidFieldsAlert.show();
+            if (hasIllegalCharacterInput) {
+                Alert illegalInputAlert = new Alert(AlertType.INFORMATION);
+                illegalInputAlert.setHeaderText("Hey!");
+                illegalInputAlert.setContentText("You cannot use an illegal character as input such as \\, \", etc.");
+                illegalInputAlert.show();
+            } else {
+                Alert invalidFieldsAlert = new Alert(AlertType.INFORMATION);
+                invalidFieldsAlert.setHeaderText("Hey!");
+                invalidFieldsAlert.setContentText("One or more fields is filled incorrectly.");
+                invalidFieldsAlert.show();
+            }
         }
         
     }
     
     
     private boolean validateFields(String name, String description, List<String> ingredients, List<String> steps) {
+        int invalidCount = 0;
+        if (hasIllegalCharacters(name)) {
+            invalidCount++;
+        }
+        if (hasIllegalCharacters(description)) {
+            invalidCount++;
+        }
+        for (String ingredient : ingredients) {
+            if (hasIllegalCharacters(ingredient)) {
+                invalidCount++;
+            }
+        }
+        for (String step : steps) {
+            if (hasIllegalCharacters(step)) {
+                invalidCount++;
+            }
+        }
+        if (invalidCount > 0) {
+            return false;
+        }
+        
         if (name.length() < 1) {
             return false;
         }
@@ -157,6 +189,18 @@ public class RecipeEntryController {
     
     
     private boolean validateNumberFields(String prepTimeString, String cookTimeString) {
+        int invalidCount = 0;
+        
+        if (hasIllegalCharacters(prepTimeString)) {
+            invalidCount++;
+        }
+        if (hasIllegalCharacters(cookTimeString)) {
+            invalidCount++;
+        }
+        if (invalidCount > 0) {
+            return false;
+        }
+        
         int prepTime;
         int cookTime;
         try {
@@ -182,6 +226,38 @@ public class RecipeEntryController {
         } catch (NullPointerException e) {
             return false;
         }
+    }
+    
+    private boolean hasIllegalCharacters(String field) {
+        if (field.contains("\\")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains("\"")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains("/")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains(":")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains("<")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains(">")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains("*")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains("?")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        } else if (field.contains("|")) {
+            hasIllegalCharacterInput = true;
+            return true;
+        }
+        return false;
     }
     
     private void initializeFormCriteria() {

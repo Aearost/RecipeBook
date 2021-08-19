@@ -113,7 +113,7 @@ public class HomeController {
                 }
             }
             if (costSelected != Cost.ANY) {
-                if (recipe.getCost() != Cost.ANY) {
+                if (recipe.getCost() != costSelected) {
                     continue;
                 }
             }

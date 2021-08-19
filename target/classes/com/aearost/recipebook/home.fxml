@@ -85,7 +85,7 @@
                         <ComboBox fx:id="cuisineComboBox" prefWidth="150.0" promptText="Any" visibleRowCount="7" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
+                  <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="275.0" spacing="10.0">
                      <children>
                         <Label text="Cost:">
                            <font>
@@ -95,7 +95,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <ComboBox fx:id="costComboBox" prefWidth="150.0" promptText="Any" visibleRowCount="6" />
+                        <ComboBox fx:id="costComboBox" prefWidth="200.0" promptText="Any" visibleRowCount="6" />
                      </children>
                   </HBox>
                </children>
