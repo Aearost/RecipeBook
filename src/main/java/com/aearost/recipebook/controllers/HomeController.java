@@ -8,9 +8,12 @@ import com.aearost.recipebook.objects.MealType;
 import com.aearost.recipebook.objects.ProteinType;
 import com.aearost.recipebook.objects.Recipe;
 import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -99,7 +102,8 @@ public class HomeController {
         
         ProteinType proteinTypeSelected = ProteinType.valueOf(proteinTypeComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
         
-        for (Recipe recipe : RecipeUtils.getRecipes()) {
+        
+        for (final Recipe recipe : RecipeUtils.getRecipes()) {
             
             // Filter based on search criteria
             if (mealTypeSelected != MealType.ANY) {
@@ -169,12 +173,32 @@ public class HomeController {
             description.setFont(Font.font("Lucida Bright Demibold", FontPosture.ITALIC, 20));
             description.setWrappingWidth(content.getMaxWidth() * 0.5);
             
+            Button viewRecipeButton = new Button();
+            viewRecipeButton.setText("View Recipe");
+            viewRecipeButton.setMinWidth(80);
+            viewRecipeButton.setMinHeight(25);
+            viewRecipeButton.setOnAction((ActionEvent t) -> {
+                try {
+                    RecipeUtils.setLoadedRecipe(recipe);
+                    App.setRoot("recipe");
+                } catch (IOException e) {
+                    Alert recipeAddFailureAlert = new Alert(Alert.AlertType.ERROR);
+                    recipeAddFailureAlert.setHeaderText("The recipe could not be loaded.");
+                    recipeAddFailureAlert.setContentText("Something went wrong. Please contact Liam regarding what happened.");
+                    recipeAddFailureAlert.show();
+                    e.printStackTrace();
+                }
+            });
 
             VBox stats = new VBox();
             stats.setSpacing(50);
-            stats.getChildren().addAll(name, totalTime);
+            stats.getChildren().addAll(name, totalTime, viewRecipeButton);
             VBox desc = new VBox();
             desc.getChildren().addAll(description);
+//            VBox view = new VBox();
+//            view.getChildren().add(viewRecipeButton);
+            
+            
 
             
             content.getChildren().addAll(stats, desc);
