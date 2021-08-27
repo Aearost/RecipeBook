@@ -137,6 +137,8 @@ public class HomeController {
             row.setAlignment(Pos.CENTER);
             row.setPadding(new Insets(25));
             row.setSpacing(Screen.getPrimary().getBounds().getWidth() * 0.05);
+            row.setMaxHeight(Screen.getPrimary().getBounds().getHeight() * 0.225);
+            row.setPrefHeight(Screen.getPrimary().getBounds().getHeight() * 0.225);
             
             if (!recipe.getImageUrl().equals("")) {
                 String url = "file:///" + recipe.getImageUrl();
@@ -144,7 +146,7 @@ public class HomeController {
                 Image image = new Image(url);
                 ImageView imageView = new ImageView();
                 imageView.setImage(image);
-                imageView.setFitWidth(150);
+                imageView.setFitWidth(200);
                 imageView.setPreserveRatio(true);
                 imageView.setSmooth(true);
                 imageView.setCache(true);
@@ -165,9 +167,19 @@ public class HomeController {
             name.setUnderline(true);
 
             Text totalTime = new Text();
-            totalTime.setText("Total Time: " + (recipe.getPrepTime() + recipe.getCookTime()));
-            totalTime.setFont(Font.font("Lucida Bright Demibold", 20));
+            totalTime.setText("Total Time: " + (recipe.getPrepTime() + recipe.getCookTime()) + " minutes");
+            totalTime.setFont(Font.font("Lucida Bright", 16));
+            
+            Text mealType = new Text();
+            String mealTypeString = recipe.getMealType().toString().toLowerCase();
+            mealType.setText("Meal Type: " + mealTypeString.substring(0, 1).toUpperCase() + mealTypeString.substring(1));
+            mealType.setFont(Font.font("Lucida Bright", 16));
 
+            Text cuisine = new Text();
+            String cuisineString = recipe.getCuisine().toString().toLowerCase();
+            cuisine.setText("Cuisine: " + cuisineString.substring(0, 1).toUpperCase() + cuisineString.substring(1));
+            cuisine.setFont(Font.font("Lucida Bright", 16));
+            
             Text description = new Text();
             description.setText(recipe.getDescription());
             description.setFont(Font.font("Lucida Bright Demibold", FontPosture.ITALIC, 20));
@@ -190,15 +202,17 @@ public class HomeController {
                 }
             });
 
+            HBox viewRecipeHBox = new HBox();
+            viewRecipeHBox.getChildren().add(viewRecipeButton);
+            viewRecipeHBox.setPadding(new Insets(0, 0, 0, 30));
+            
             VBox stats = new VBox();
-            stats.setSpacing(50);
-            stats.getChildren().addAll(name, totalTime, viewRecipeButton);
+            stats.setSpacing(10);
+            stats.getChildren().addAll(name, totalTime, mealType, cuisine, viewRecipeHBox);
             VBox desc = new VBox();
             desc.getChildren().addAll(description);
-//            VBox view = new VBox();
-//            view.getChildren().add(viewRecipeButton);
-            
-            
+            desc.setAlignment(Pos.TOP_CENTER);
+            desc.setPadding(new Insets (20, 0, 0, 0));
 
             
             content.getChildren().addAll(stats, desc);
