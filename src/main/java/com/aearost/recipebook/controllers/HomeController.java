@@ -9,7 +9,6 @@ import com.aearost.recipebook.objects.ProteinType;
 import com.aearost.recipebook.objects.Recipe;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -44,12 +43,11 @@ public class HomeController {
     private Button recipeSearchButton;
     @FXML
     private ListView recipeResultsListView;
-    
-    
+
     @FXML
     private void onRecipeSearchButtonClick() {
         recipeResultsListView.getItems().clear();
-        
+
         MealType mealTypeSelected = MealType.valueOf(mealTypeComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
         Cuisine cuisineSelected = Cuisine.valueOf(cuisineComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
 
@@ -75,7 +73,7 @@ public class HomeController {
                 costSelected = Cost.ANY;
                 break;
         }
-        
+
         String totalTimeSelectedString = totalTimeComboBox.getSelectionModel().getSelectedItem().toString();
         int totalTimeSelected = 0;
         switch (totalTimeSelectedString) {
@@ -99,12 +97,11 @@ public class HomeController {
                 totalTimeSelected = -1;
                 break;
         }
-        
+
         ProteinType proteinTypeSelected = ProteinType.valueOf(proteinTypeComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
-        
-        
+
         for (final Recipe recipe : RecipeUtils.getRecipes()) {
-            
+
             // Filter based on search criteria
             if (mealTypeSelected != MealType.ANY) {
                 if (recipe.getMealType() != mealTypeSelected) {
@@ -132,14 +129,16 @@ public class HomeController {
                     continue;
                 }
             }
-            
+
             HBox row = new HBox();
             row.setAlignment(Pos.CENTER);
             row.setPadding(new Insets(25));
             row.setSpacing(Screen.getPrimary().getBounds().getWidth() * 0.05);
-            row.setMaxHeight(Screen.getPrimary().getBounds().getHeight() * 0.225);
-            row.setPrefHeight(Screen.getPrimary().getBounds().getHeight() * 0.225);
-            
+//            row.setMaxHeight(Screen.getPrimary().getBounds().getHeight() * 0.225);
+//            row.setPrefHeight(Screen.getPrimary().getBounds().getHeight() * 0.225);
+//            row.setMaxWidth(recipeResultsListView.getWidth() * 0.5);
+//            row.setPrefWidth(recipeResultsListView.getWidth() * 0.5);
+
             if (!recipe.getImageUrl().equals("")) {
                 String url = "file:///" + recipe.getImageUrl();
                 url = url.replace("\\", "/");
@@ -152,15 +151,7 @@ public class HomeController {
                 imageView.setCache(true);
                 row.getChildren().add(imageView);
             }
-            
-            HBox content = new HBox();
-            content.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * 0.4);
-            content.setMaxWidth(Screen.getPrimary().getBounds().getWidth() * 0.4);
-            content.setAlignment(Pos.CENTER);
-            content.setSpacing(200);
-            
-            
-            
+
             Text name = new Text();
             name.setText(recipe.getName());
             name.setFont(Font.font("Lucida Bright Demibold", 20));
@@ -169,7 +160,7 @@ public class HomeController {
             Text totalTime = new Text();
             totalTime.setText("Total Time: " + (recipe.getPrepTime() + recipe.getCookTime()) + " minutes");
             totalTime.setFont(Font.font("Lucida Bright", 16));
-            
+
             Text mealType = new Text();
             String mealTypeString = recipe.getMealType().toString().toLowerCase();
             mealType.setText("Meal Type: " + mealTypeString.substring(0, 1).toUpperCase() + mealTypeString.substring(1));
@@ -179,12 +170,12 @@ public class HomeController {
             String cuisineString = recipe.getCuisine().toString().toLowerCase();
             cuisine.setText("Cuisine: " + cuisineString.substring(0, 1).toUpperCase() + cuisineString.substring(1));
             cuisine.setFont(Font.font("Lucida Bright", 16));
-            
+
             Text description = new Text();
             description.setText(recipe.getDescription());
             description.setFont(Font.font("Lucida Bright Demibold", FontPosture.ITALIC, 20));
-            description.setWrappingWidth(content.getMaxWidth() * 0.5);
-            
+            description.setWrappingWidth(recipeResultsListView.getWidth() * 0.3);
+
             Button viewRecipeButton = new Button();
             viewRecipeButton.setText("View Recipe");
             viewRecipeButton.setMinWidth(80);
@@ -205,67 +196,55 @@ public class HomeController {
             HBox viewRecipeHBox = new HBox();
             viewRecipeHBox.getChildren().add(viewRecipeButton);
             viewRecipeHBox.setPadding(new Insets(0, 0, 0, 30));
-            
+
             VBox stats = new VBox();
             stats.setSpacing(10);
             stats.getChildren().addAll(name, totalTime, mealType, cuisine, viewRecipeHBox);
-            VBox desc = new VBox();
-            desc.getChildren().addAll(description);
-            desc.setAlignment(Pos.TOP_CENTER);
-            desc.setPadding(new Insets (20, 0, 0, 0));
-
-            
-            content.getChildren().addAll(stats, desc);
-            row.getChildren().add(content);
+            row.getChildren().addAll(stats, description);
             recipeResultsListView.getItems().add(row);
         }
         if (recipeResultsListView.getItems().isEmpty()) {
             Text noResultsText = new Text();
             noResultsText.setText("There are no results with this search criteria!");
             noResultsText.setFont(Font.font("Lucida Bright Demibold", FontPosture.ITALIC, 20));
-            
+
             HBox noResultsHBox = new HBox();
             noResultsHBox.setAlignment(Pos.CENTER);
             noResultsHBox.getChildren().add(noResultsText);
             recipeResultsListView.getItems().add(noResultsHBox);
         }
     }
-    
+
     @FXML
     private void onAddRecipeButtonClick() throws IOException {
         App.setRoot("recipe-entry");
     }
-    
+
     private void initializeSearchCriteria() {
         mealTypeComboBox.getItems().removeAll(mealTypeComboBox.getItems());
         mealTypeComboBox.getItems().addAll("Any", "Breakfast", "Lunch", "Supper", "Sauce", "Snack", "Dessert");
         mealTypeComboBox.getSelectionModel().select("Any");
-        
-        
+
         cuisineComboBox.getItems().removeAll(cuisineComboBox.getItems());
         cuisineComboBox.getItems().addAll("Any", "American", "Chinese", "Greek", "Indian", "Italian", "Japanese", "Lebanese", "Mexican", "Thai");
         cuisineComboBox.getSelectionModel().select("Any");
-        
-        
+
         costComboBox.getItems().removeAll(costComboBox.getItems());
         costComboBox.getItems().addAll("Any", "Less than $10", "Between $10 and $15", "Between $15 and $20", "Between $20 and $30", "More than $30");
         costComboBox.getSelectionModel().select("Any");
-        
-        
+
         totalTimeComboBox.getItems().removeAll(totalTimeComboBox.getItems());
         totalTimeComboBox.getItems().addAll("Any", "Less than 10 mins", "Less than 30 mins", "Less than 1 hour", "Less than 2 hours", "More than 2 hours");
         totalTimeComboBox.getSelectionModel().select("Any");
-        
-        
+
         proteinTypeComboBox.getItems().removeAll(proteinTypeComboBox.getItems());
         proteinTypeComboBox.getItems().addAll("Any", "Chicken", "Beef", "Pork", "Fish", "Tofu", "Vegetarian", "Dessert");
         proteinTypeComboBox.getSelectionModel().select("Any");
     }
-    
+
     @FXML
     public void initialize() {
         initializeSearchCriteria();
     }
-    
-    
+
 }

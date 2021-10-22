@@ -120,8 +120,6 @@ public class RecipeEntryController {
 
             ProteinType proteinType = ProteinType.valueOf(proteinTypeEntryComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
             
-            System.out.println("Current path: " + name);
-            
             // No image was selected
             if (imagePathText.getText().equals("")) {
                 Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
@@ -130,7 +128,7 @@ public class RecipeEntryController {
             // An image was selected
             else {
                 Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imagePathText.getText());
-//                RecipePersistence.writeRecipeToFile(recipe);
+                RecipePersistence.writeRecipeToFile(recipe);
                 RecipeUtils.addRecipe(recipe);
             }
         } else {
@@ -233,9 +231,6 @@ public class RecipeEntryController {
             hasIllegalCharacterInput = true;
             return true;
         } else if (field.contains("\"")) {
-            hasIllegalCharacterInput = true;
-            return true;
-        } else if (field.contains("/")) {
             hasIllegalCharacterInput = true;
             return true;
         } else if (field.contains(":")) {

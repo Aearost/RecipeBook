@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -30,10 +32,45 @@
          </opaqueInsets>
       </Label>
       <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-373.39642333984375" startY="-0.2083234190940857" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+      <ImageView fx:id="recipeImageView" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox alignment="CENTER" prefHeight="560.0" prefWidth="960.0" spacing="20.0">
          <children>
+            <HBox alignment="TOP_CENTER" prefHeight="143.0" prefWidth="960.0" spacing="10.0">
+               <children>
+                  <Label fx:id="descriptionLabel1" text="Ingredients:">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="16.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextArea fx:id="ingredientsTextArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
+                     <font>
+                        <Font name="Lucida Bright" size="16.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="143.0" prefWidth="960.0" spacing="10.0">
+               <children>
+                  <Label fx:id="descriptionLabel11" text="Steps:">
+                     <font>
+                        <Font name="Lucida Bright Demibold" size="16.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextArea fx:id="stepsTextArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
+                     <font>
+                        <Font name="Lucida Bright" size="16.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </HBox>
             <Button fx:id="recipeBackButton" mnemonicParsing="false" onAction="#onRecipeBackButtonClick" text="Return Home" />
          </children>
-      </HBox>
+      </VBox>
    </children>
 </VBox>

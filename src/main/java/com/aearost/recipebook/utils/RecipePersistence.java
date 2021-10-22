@@ -175,7 +175,7 @@ public class RecipePersistence {
                             fieldCount++;
                         } else if (fieldName.equals("ingredients")) {
                             ingredients = new ArrayList<>();
-                            int finalPart = parts.length - 2;
+                            int finalPart = parts.length - 1;
                             // Cycles through the elements in the array
                             for (int i = 3; i < finalPart; i = i + 2) {
                                 ingredients.add(parts[i]);
@@ -183,7 +183,7 @@ public class RecipePersistence {
                             fieldCount++;
                         } else if (fieldName.equals("steps")) {
                             steps = new ArrayList<>();
-                            int finalPart = parts.length - 2;
+                            int finalPart = parts.length - 1;
                             // Cycles through the elements in the array
                             for (int i = 3; i < finalPart; i = i + 2) {
                                 steps.add(parts[i]);

@@ -8,5 +8,6 @@ com\aearost\recipebook\controllers\RecipeEntryController.class
 module-info.class
 com\aearost\recipebook\controllers\HomeController.class
 com\aearost\recipebook\utils\RecipeUtils.class
+com\aearost\recipebook\controllers\RecipeController.class
 com\aearost\recipebook\utils\RecipePersistence.class
 com\aearost\recipebook\Main.class
