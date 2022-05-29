@@ -31,7 +31,8 @@ public class RecipeController {
     
     @FXML
     public void onRecipeBackButtonClick() throws IOException {
-        App.setRoot("home");
+        //App.setRoot("home");
+        recipeBackButton.getScene().getWindow().hide();
     }
     
     @FXML
@@ -46,8 +47,6 @@ public class RecipeController {
             url = url.replace("\\", "/");
             Image image = new Image(url);
             recipeImageView.setImage(image);
-            recipeImageView.setPreserveRatio(true);
-            recipeImageView.setSmooth(true);
             recipeImageView.setCache(true);
         } else {
             recipeImageView.setFitHeight(0);
@@ -66,7 +65,12 @@ public class RecipeController {
         ingredientsTextArea.setText(ingredients);
         ingredientsTextArea.setFont(Font.font("Lucida Bright", 16));
         ingredientsTextArea.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * 0.35);
-        ingredientsTextArea.setPrefRowCount(recipe.getIngredients().size());
+        if (recipe.getIngredients().size() < 9) {
+            ingredientsTextArea.setPrefRowCount(recipe.getIngredients().size());
+        } else {
+            ingredientsTextArea.setPrefRowCount(9);
+        }
+        
         
         String steps = "";
         for (int i = 0; i < recipe.getSteps().size(); i++) {
@@ -80,7 +84,11 @@ public class RecipeController {
         stepsTextArea.setText(steps);
         stepsTextArea.setFont(Font.font("Lucida Bright", 16));
         stepsTextArea.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * 0.5);
-        stepsTextArea.setPrefRowCount(recipe.getSteps().size());
+        if (recipe.getIngredients().size() < 9) {
+            stepsTextArea.setPrefRowCount(recipe.getSteps().size());
+        } else {
+            stepsTextArea.setPrefRowCount(9);
+        }
     }
 
 }

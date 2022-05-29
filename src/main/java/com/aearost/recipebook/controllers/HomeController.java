@@ -10,8 +10,11 @@ import com.aearost.recipebook.objects.Recipe;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -24,6 +27,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class HomeController {
 
@@ -183,7 +187,19 @@ public class HomeController {
             viewRecipeButton.setOnAction((ActionEvent t) -> {
                 try {
                     RecipeUtils.setLoadedRecipe(recipe);
-                    App.setRoot("recipe");
+                    //App.setRoot("recipe");
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/aearost/recipebook/recipe.fxml"));  
+                    Stage stage = new Stage();
+                    stage.initOwner(viewRecipeButton.getScene().getWindow());
+                    stage.setScene(new Scene((Parent) loader.load()));
+
+                    // showAndWait will block execution until the window closes...
+                    stage.showAndWait();
+
+                    RecipeController controller = loader.getController();
+                    
+                    
+                    
                 } catch (IOException e) {
                     Alert recipeAddFailureAlert = new Alert(Alert.AlertType.ERROR);
                     recipeAddFailureAlert.setHeaderText("The recipe could not be loaded.");

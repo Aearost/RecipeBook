@@ -32,7 +32,7 @@
          </opaqueInsets>
       </Label>
       <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-373.39642333984375" startY="-0.2083234190940857" />
-      <ImageView fx:id="recipeImageView" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="recipeImageView" fitHeight="350.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" />
       <VBox alignment="CENTER" prefHeight="560.0" prefWidth="960.0" spacing="20.0">
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="143.0" prefWidth="960.0" spacing="10.0">
@@ -47,7 +47,7 @@
                   </Label>
                   <TextArea fx:id="ingredientsTextArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
                      <font>
-                        <Font name="Lucida Bright" size="16.0" />
+                        <Font name="Lucida Bright" size="14.0" />
                      </font>
                   </TextArea>
                </children>
@@ -64,7 +64,7 @@
                   </Label>
                   <TextArea fx:id="stepsTextArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" wrapText="true">
                      <font>
-                        <Font name="Lucida Bright" size="16.0" />
+                        <Font name="Lucida Bright" size="14.0" />
                      </font>
                   </TextArea>
                </children>
