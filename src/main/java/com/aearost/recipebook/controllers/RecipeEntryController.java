@@ -101,13 +101,13 @@ public class RecipeEntryController {
             Cost cost;
             String costContent = costEntryComboBox.getSelectionModel().getSelectedItem().toString();
             switch (costContent) {
-                case "Between $10 and $15":
+                case "Less than $15":
                     cost = Cost.LT15;
                     break;
-                case "Between $15 and $20":
+                case "Less than $20":
                     cost = Cost.LT20;
                     break;
-                case "Between $20 and $30":
+                case "Less than $30":
                     cost = Cost.LT30;
                     break;
                 case "More than $30":
@@ -121,16 +121,17 @@ public class RecipeEntryController {
             ProteinType proteinType = ProteinType.valueOf(proteinTypeEntryComboBox.getSelectionModel().getSelectedItem().toString().toUpperCase());
             
             // No image was selected
+            Recipe recipe;
             if (imagePathText.getText().equals("")) {
-                Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
-                RecipePersistence.writeRecipeToFile(recipe);
+                recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType);
             }
             // An image was selected
             else {
-                Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imagePathText.getText());
-                RecipePersistence.writeRecipeToFile(recipe);
-                RecipeUtils.addRecipe(recipe);
+                recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imagePathText.getText());
             }
+            RecipePersistence.writeRecipeToFile(recipe);
+            RecipeUtils.addRecipe(recipe);
+            System.out.println("Added recipe successfully!");
         } else {
             if (hasIllegalCharacterInput) {
                 Alert illegalInputAlert = new Alert(AlertType.INFORMATION);
@@ -265,7 +266,7 @@ public class RecipeEntryController {
         
         
         costEntryComboBox.getItems().removeAll(costEntryComboBox.getItems());
-        costEntryComboBox.getItems().addAll("Less than $10", "Between $10 and $15", "Between $15 and $20", "Between $20 and $30", "More than $30");
+        costEntryComboBox.getItems().addAll("Under $10", "Less than $15", "Less than $20", "Less than $30", "More than $30");
         
         
         proteinTypeEntryComboBox.getItems().removeAll(proteinTypeEntryComboBox.getItems());

@@ -126,6 +126,10 @@ public class RecipePersistence {
         String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "RecipeBook" + File.separator + "recipes";
         File recipeDirectory = new File(path);
         
+        System.out.println("----------------");
+        System.out.println("Loading recipes...");
+        System.out.println("----------------");
+        
         if (recipeDirectory.isDirectory()) {
             Scanner reader;
             for (final File recipeFile : recipeDirectory.listFiles()) {
@@ -216,7 +220,7 @@ public class RecipePersistence {
                             Recipe recipe = new Recipe(name, description, ingredients, steps, mealType, cuisine, cost, prepTime, cookTime, proteinType, imageUrl);
                             RecipeUtils.addRecipe(recipe);
                             fieldCount = 0;
-                            System.out.println(name + " has been loaded");
+                            System.out.println(name + " [Loaded]");
                         }
                     }
                 } catch (FileNotFoundException e) {

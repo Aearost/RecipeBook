@@ -58,16 +58,16 @@ public class HomeController {
         String costSelectedString = costComboBox.getSelectionModel().getSelectedItem().toString();
         Cost costSelected;
         switch (costSelectedString) {
-            case "Less than $10":
+            case "Under $10":
                 costSelected = Cost.LT10;
                 break;
-            case "Between $10 and $15":
+            case "Less than $15":
                 costSelected = Cost.LT15;
                 break;
-            case "Between $15 and $20":
+            case "Less than $20":
                 costSelected = Cost.LT20;
                 break;
-            case "Between $20 and $30":
+            case "Less than $30":
                 costSelected = Cost.LT30;
                 break;
             case "More than $30":
@@ -186,6 +186,7 @@ public class HomeController {
             viewRecipeButton.setMinHeight(25);
             viewRecipeButton.setOnAction((ActionEvent t) -> {
                 try {
+                    System.out.println("Loading Recipe: " + recipe.getName());
                     RecipeUtils.setLoadedRecipe(recipe);
                     //App.setRoot("recipe");
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/aearost/recipebook/recipe.fxml"));  
@@ -197,9 +198,6 @@ public class HomeController {
                     stage.showAndWait();
 
                     RecipeController controller = loader.getController();
-                    
-                    
-                    
                 } catch (IOException e) {
                     Alert recipeAddFailureAlert = new Alert(Alert.AlertType.ERROR);
                     recipeAddFailureAlert.setHeaderText("The recipe could not be loaded.");
@@ -246,7 +244,7 @@ public class HomeController {
         cuisineComboBox.getSelectionModel().select("Any");
 
         costComboBox.getItems().removeAll(costComboBox.getItems());
-        costComboBox.getItems().addAll("Any", "Less than $10", "Between $10 and $15", "Between $15 and $20", "Between $20 and $30", "More than $30");
+        costComboBox.getItems().addAll("Any", "Under $10", "Less than $15", "Less than $20", "Less than $30", "More than $30");
         costComboBox.getSelectionModel().select("Any");
 
         totalTimeComboBox.getItems().removeAll(totalTimeComboBox.getItems());

@@ -1,6 +1,5 @@
 package com.aearost.recipebook.controllers;
 
-import com.aearost.recipebook.App;
 import com.aearost.recipebook.objects.Recipe;
 import com.aearost.recipebook.utils.RecipeUtils;
 import java.io.IOException;
@@ -31,7 +30,6 @@ public class RecipeController {
     
     @FXML
     public void onRecipeBackButtonClick() throws IOException {
-        //App.setRoot("home");
         recipeBackButton.getScene().getWindow().hide();
     }
     
@@ -55,13 +53,13 @@ public class RecipeController {
         String ingredients = "";
         for (int i = 0; i < recipe.getIngredients().size(); i++) {
             String ingredient = recipe.getIngredients().get(i);
-            System.out.println(ingredient);
             if (i == recipe.getIngredients().size() - 1) {
                 ingredients += ingredient;
             } else {
                 ingredients += ingredient + "\n";
             }
         }
+        
         ingredientsTextArea.setText(ingredients);
         ingredientsTextArea.setFont(Font.font("Lucida Bright", 16));
         ingredientsTextArea.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * 0.35);
