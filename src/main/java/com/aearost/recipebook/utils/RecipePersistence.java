@@ -94,7 +94,6 @@ public class RecipePersistence {
                                 Files.copy(new File(localImageUrl).toPath(), new File(recipe.getImageUrl()).toPath(), StandardCopyOption.REPLACE_EXISTING);
                             }
                             writer.write("    \"imageUrl\": \"" + recipe.getImageUrl() + "\"\n");
-                            
                             writer.write("}");   
                         }
                         
@@ -121,6 +120,32 @@ public class RecipePersistence {
         }
     }
     
+    public static void deleteRecipeFile(Recipe recipe) {
+        String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "RecipeBook";
+        File rootDirectory = new File(path);
+        
+        // Path at the application's data recipe directory
+        // i.e C:\Program Files\RecipeBook\recipes
+        path += File.separator + "recipes";
+        File recipeDirectory = new File(path);
+        
+        String recipeFileName = recipe.getName().toLowerCase().replaceAll(" ", "_");
+        path += File.separator + recipeFileName + ".json";
+        File recipeFile = new File(path);
+        
+        if (recipeFile.delete()) {
+            System.out.println("Successfully deleted recipe " + recipeFileName + ".json");
+        }
+        
+        if (recipe.getImageUrl().equals("")) {
+            return;
+        }
+        
+        File imagesFile = new File(recipe.getImageUrl());
+        if (imagesFile.delete()) {
+            System.out.println("Successfully deleted its image");
+        }
+    }
 
     public static void readRecipesFromFiles() {
         String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "RecipeBook" + File.separator + "recipes";

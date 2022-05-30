@@ -22,6 +22,7 @@ public class RecipeUtils {
     
     public static void deleteRecipe(Recipe recipe) {
         recipes.remove(recipe);
+        RecipePersistence.deleteRecipeFile(recipe);
     }
     
     public static void setLoadedRecipe(Recipe recipe) {

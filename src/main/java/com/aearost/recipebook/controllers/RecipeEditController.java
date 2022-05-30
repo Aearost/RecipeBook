@@ -57,6 +57,7 @@ public class RecipeEditController {
     @FXML
     private Button recipeEditRecipeButton;
     
+    private Recipe selectedRecipe;
     private boolean hasIllegalCharacterInput = false;
     
     @FXML
@@ -67,6 +68,7 @@ public class RecipeEditController {
     @FXML
     private void onRecipeListComboBoxChange() {
         Recipe recipe = RecipeUtils.getRecipeByName(recipeListComboBox.getSelectionModel().getSelectedItem().toString());
+        selectedRecipe = recipe;
         nameEditTextField.setText(recipe.getName());
         descriptionEditTextArea.setText(recipe.getDescription());
         
@@ -104,8 +106,7 @@ public class RecipeEditController {
     
     @FXML
     private void onRecipeEditSaveRecipeButtonClick() throws IOException {
-        System.out.println("Implement stuff here! RecipeEditController line 191");
-        
+        RecipeUtils.deleteRecipe(selectedRecipe);
         String name = nameEditTextField.getText();
         String description = descriptionEditTextArea.getText();
         List<String> ingredients = new ArrayList<>();
