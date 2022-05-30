@@ -193,6 +193,7 @@
          <children>
             <Button fx:id="recipeEditBackButton" mnemonicParsing="false" onAction="#onRecipeEditBackButtonClick" text="Return Home" />
             <Button fx:id="recipeEditRecipeButton" mnemonicParsing="false" onAction="#onRecipeEditSaveRecipeButtonClick" text="Save Recipe" />
+            <Button fx:id="recipeDeleteButton" mnemonicParsing="false" onAction="#onRecipeDeleteButtonClick" text="Delete Recipe" />
          </children>
       </HBox>
    </children>

@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -52,10 +53,6 @@ public class RecipeEditController {
     private Button imageAttachButton;
     @FXML
     private Text imagePathText;
-    @FXML
-    private Button recipeEditBackButton;
-    @FXML
-    private Button recipeEditRecipeButton;
     
     private Recipe selectedRecipe;
     private boolean hasIllegalCharacterInput = false;
@@ -108,7 +105,8 @@ public class RecipeEditController {
     
     @FXML
     private void onRecipeEditSaveRecipeButtonClick() throws IOException {
-        RecipeUtils.deleteRecipe(selectedRecipe);
+        // true for updating recipe and not deleting
+        RecipeUtils.deleteRecipe(selectedRecipe, true);
         String name = nameEditTextField.getText();
         String description = descriptionEditTextArea.getText();
         List<String> ingredients = new ArrayList<>();
@@ -180,6 +178,20 @@ public class RecipeEditController {
         }
     }
     
+    
+    @FXML
+    private void onRecipeDeleteButtonClick() throws IOException {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you would like to delete this recipe?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            RecipeUtils.deleteRecipe(selectedRecipe, false);
+            Alert deleteSuccessAlert = new Alert(Alert.AlertType.INFORMATION);
+            deleteSuccessAlert.setHeaderText("Success!");
+            deleteSuccessAlert.setContentText("The recipe was successfully deleted!");
+            deleteSuccessAlert.show();
+        }
+    }
     
     private boolean validateFields(String name, String description, List<String> ingredients, List<String> steps) {
         int invalidCount = 0;

@@ -20,10 +20,12 @@ public class RecipeUtils {
         recipes.add(recipe);
     }
     
-    public static void deleteRecipe(Recipe recipe) {
-        setLoadedRecipe(recipe);
+    public static void deleteRecipe(Recipe recipe, boolean isUpdating) {
+        if (isUpdating) {
+            setLoadedRecipe(recipe);
+        }
         recipes.remove(recipe);
-        RecipePersistence.deleteRecipeFile(recipe);
+        RecipePersistence.deleteRecipeFile(recipe, isUpdating);
     }
     
     public static void setLoadedRecipe(Recipe recipe) {

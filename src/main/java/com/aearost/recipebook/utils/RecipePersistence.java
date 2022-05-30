@@ -127,7 +127,7 @@ public class RecipePersistence {
         }
     }
     
-    public static void deleteRecipeFile(Recipe recipe) {
+    public static void deleteRecipeFile(Recipe recipe, boolean isUpdating) {
         String path = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "RecipeBook";
         File rootDirectory = new File(path);
         
@@ -144,14 +144,15 @@ public class RecipePersistence {
             System.out.println("Successfully deleted recipe " + recipeFileName + ".json");
         }
         
-        if (recipe.getImageUrl().equals("")) {
-            return;
+        if (isUpdating) {
+            if (recipe.getImageUrl().equals("")) {
+                return;
+            }
+            // If the same image URL is being used after editing the file
+            else if (recipe.getImageUrl().equals(RecipeUtils.getLoadedRecipe().getImageUrl())) {
+                return;
+            }
         }
-        // If the same image URL is being used after editing the file
-        else if (recipe.getImageUrl().equals(RecipeUtils.getLoadedRecipe().getImageUrl())) {
-            return;
-        }
-        
         File imagesFile = new File(recipe.getImageUrl());
         if (imagesFile.delete()) {
             System.out.println("Successfully deleted its image");
