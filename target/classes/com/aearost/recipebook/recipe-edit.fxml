@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" prefHeight="800.0" prefWidth="1000.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aearost.recipebook.controllers.RecipeEditController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <Label text="Recipe Edit">
+         <font>
+            <Font name="Lucida Bright Demibold" size="24.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label text="Select and modify the recipe of your choice.">
+               <font>
+                  <Font name="Lucida Bright Demibold" size="14.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <ComboBox fx:id="recipeListComboBox" onAction="#onRecipeListComboBoxChange" prefHeight="25.0" prefWidth="324.0" />
+         </children>
+      </HBox>
+      <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-373.39642333984375" startY="-0.2083234190940857" />
+      <VBox alignment="CENTER" prefHeight="500.0" prefWidth="960.0" spacing="15.0">
+         <children>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="435.0" spacing="10.0">
+               <children>
+                  <Label text="Recipe Name:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextField fx:id="nameEditTextField" prefHeight="25.0" prefWidth="187.0" promptText="Enter the recipe name..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="435.0" spacing="10.0">
+               <children>
+                  <Label text="Description:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextArea fx:id="descriptionEditTextArea" prefHeight="80.0" prefWidth="269.0" promptText="Enter a brief description about the recipe..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <Label text="Ingredients:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextArea fx:id="ingredientsEditTextArea" prefHeight="150.0" prefWidth="410.0" promptText="List the measurements and the ingredients..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <Label text="Steps:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextArea fx:id="stepsEditTextArea" prefHeight="150.0" prefWidth="410.0" promptText="List the steps to make the recipe..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="650.0" spacing="10.0">
+               <children>
+                  <Button fx:id="imageAttachButton" mnemonicParsing="false" onAction="#onImageAttachButtonClick" text="Select Image" />
+                  <Text fx:id="imagePathText" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-373.39642333984375" startY="-0.2083234190940857" />
+      <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="324.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="0.0" prefWidth="240.0" spacing="10.0">
+               <children>
+                  <Label text="Meal Type:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <ComboBox fx:id="mealTypeEditComboBox" prefWidth="150.0" visibleRowCount="6" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
+               <children>
+                  <Label text="Cuisine:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <ComboBox fx:id="cuisineEditComboBox" prefWidth="150.0" visibleRowCount="7" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="309.0" spacing="10.0">
+               <children>
+                  <Label text="Cost:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <ComboBox fx:id="costEditComboBox" prefHeight="25.0" prefWidth="165.0" visibleRowCount="5" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
+               <children>
+                  <Label text="Prep Time:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextField fx:id="prepTimeEditTextField" prefHeight="25.0" prefWidth="125.0" promptText="Expected prep time..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
+               <children>
+                  <Label text="Cook Time:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <TextField fx:id="cookTimeEditTextField" prefHeight="25.0" prefWidth="125.0" promptText="Expected cook time..." />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="240.0" spacing="10.0">
+               <children>
+                  <Label text="Protein Type:">
+                     <font>
+                        <Font name="Lucida Bright" size="14.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <ComboBox fx:id="proteinTypeEditComboBox" prefHeight="25.0" prefWidth="137.0" visibleRowCount="7" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-373.39642333984375" startY="-0.2083234190940857" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+         <children>
+            <Button fx:id="recipeEditBackButton" mnemonicParsing="false" onAction="#onRecipeEditBackButtonClick" text="Return Home" />
+            <Button fx:id="recipeEditRecipeButton" mnemonicParsing="false" onAction="#onRecipeEditSaveRecipeButtonClick" text="Save Recipe" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

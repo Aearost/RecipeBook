@@ -26,9 +26,9 @@
             <Insets bottom="-15.0" />
          </VBox.margin></Label>
       <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-100.0" />
-      <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="324.0">
+      <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="324.0" spacing="5.0">
          <children>
-            <Label text="To add a new recipe, click the button below!">
+            <Label text="Add or Edit a Recipe!" underline="true">
                <font>
                   <Font name="Lucida Bright Demibold" size="14.0" />
                </font>
@@ -36,11 +36,12 @@
                   <Insets />
                </opaqueInsets>
             </Label>
-            <Button fx:id="addRecipeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddRecipeButtonClick" text="Add Recipe">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+               <children>
+                  <Button fx:id="addRecipeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddRecipeButtonClick" text="Add Recipe" />
+                  <Button fx:id="editRecipeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditRecipeButtonClick" text="Edit Recipe" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Line endX="320.29290771484375" endY="-0.20710676908493042" startX="-100.0" />

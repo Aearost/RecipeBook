@@ -44,6 +44,8 @@ public class HomeController {
     @FXML
     private Button addRecipeButton;
     @FXML
+    private Button editRecipeButton;
+    @FXML
     private Button recipeSearchButton;
     @FXML
     private ListView recipeResultsListView;
@@ -232,6 +234,11 @@ public class HomeController {
     @FXML
     private void onAddRecipeButtonClick() throws IOException {
         App.setRoot("recipe-entry");
+    }
+    
+    @FXML
+    private void onEditRecipeButtonClick() throws IOException {
+        App.setRoot("recipe-edit");
     }
 
     private void initializeSearchCriteria() {
