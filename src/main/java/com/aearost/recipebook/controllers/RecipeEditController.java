@@ -96,12 +96,14 @@ public class RecipeEditController {
     @FXML
     private void onImageAttachButtonClick() {
         FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Resource File");
-            fileChooser.getExtensionFilters().addAll(
-                    new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-            File selectedFile = fileChooser.showOpenDialog(imageAttachButton.getScene().getWindow());
-            
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(imageAttachButton.getScene().getWindow());
+
+        if (selectedFile != null) {
             imagePathText.setText(selectedFile.getPath());
+        }
     }
     
     @FXML

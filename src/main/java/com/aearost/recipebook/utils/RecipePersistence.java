@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,13 @@ public class RecipePersistence {
                                 
                                 recipe.setImageUrl(imagesDirectory + File.separator + recipeFileName + "." + extension);
                                 // Copies the image to the \RecipeBook\images folder
-                                Files.copy(new File(localImageUrl).toPath(), new File(recipe.getImageUrl()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                                try {
+                                    Files.copy(new File(localImageUrl).toPath(), new File(recipe.getImageUrl()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                                } catch (NoSuchFileException e) {
+                                    // Only occurs if the image was deleted since it's being updated
+                                    // If there was no image found, the previous condition wouldn't have entered
+                                    System.out.println("Used the previous image");
+                                }
                             }
                             writer.write("    \"imageUrl\": \"" + recipe.getImageUrl() + "\"\n");
                             writer.write("}");   
@@ -138,6 +145,10 @@ public class RecipePersistence {
         }
         
         if (recipe.getImageUrl().equals("")) {
+            return;
+        }
+        // If the same image URL is being used after editing the file
+        else if (recipe.getImageUrl().equals(RecipeUtils.getLoadedRecipe().getImageUrl())) {
             return;
         }
         
